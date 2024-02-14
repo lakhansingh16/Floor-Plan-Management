@@ -1,0 +1,32 @@
+#Schema for the MySQL database
+
+The database has three tables:
+1. admins
+CREATE TABLE admins(
+    admin_id INT NOT_NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(128) NOT NULL,
+    password VARCHAR(256) NOT NULL
+);
+
+2. rooms
+CREATE TABLE rooms(
+    room_id INT NOT NULL AUTO-INCREMENT PRIMARY KEY,
+    room_name VARCHAR(100) NOT NULL,
+    capacity INT NOT NULL,
+    cost_per_hour INT NOT NULL,
+    projector_available BOOLEAN NOT NULL,
+    floor INT NOT NULL,
+    isBooked BOOLEAN NOT NULL DEFAULT false
+);
+
+3. bookings
+
+CREATE TABLE bookings(
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,
+    room_id INT NOT_NULL,
+    admin_id INT NOT NULL,
+    start_datetime datetime NOT_NULL,
+    end_datetime datetime NOT NULL,
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id),
+    FOREIGN KEY (admin_id) REFERENCES admins(admin_id)
+);
